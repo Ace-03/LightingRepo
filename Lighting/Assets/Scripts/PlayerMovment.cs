@@ -1,25 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
-
     public float moveSpeed = 10f;
-    public float rotateSpeed = 75f;
 
     private float vInput;
-    private float hInput;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float sInput;
 
     // Update is called once per frame
     void Update()
     {
-        vInput = Input.GetAxis("Vertical") * moveSpeed;
-        hInput = Input.GetAxis("Horizontal") * rotateSpeed;
+        if (Input.GetKey(KeyCode.A))
+            sInput = -1f * moveSpeed;
+        else if (Input.GetKey(KeyCode.D))
+            sInput = 1f * moveSpeed;
+        else
+            sInput = 0;
+
+        if (Input.GetKey(KeyCode.W))
+            vInput = 1f * moveSpeed;
+        else if (Input.GetKey(KeyCode.S))
+            vInput = -1f * moveSpeed;
+        else
+            vInput = 0;
+
+        this.transform.Translate(Vector3.forward * vInput * Time.deltaTime);
+        this.transform.Translate(Vector3.right * sInput * Time.deltaTime);
     }
 }
